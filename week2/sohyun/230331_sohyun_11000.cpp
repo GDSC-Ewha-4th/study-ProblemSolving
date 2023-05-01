@@ -10,16 +10,51 @@
 2. 어떻게 구현하는가? 
     a. 챌린징 요소: 중첩 반복문을 사용하여 끝나는 시간을 하나 하나 체크해줘야한다.
 3. fail! -> 메모리 초과 발생! 
-*/
+// */
+// #include <iostream>
+// #include <vector>
+// #include <algorithm>
+// using namespace std;
+// int main(){
+//     int n;
+//     cin >> n;
+//     vector<pair<int, int>> v;
+//     vector<int> endTime;
+//     for(int i = 0; i<n; i++){
+//         int start, end;
+//         cin >> start >> end;
+//         v.push_back({start, end});
+//     }
+
+//     sort(v.begin(), v.end());
+
+//     endTime.push_back(v[0].second);
+
+
+//     for(int i = 1; i< v.size(); i++){
+//         for(int j = 0; j<endTime.size();j++){
+//             if(endTime[j] <= v[i].first){
+//                 endTime[j] = v[i].second;
+//                 break;
+//             }
+//             endTime.push_back(v[i].second);
+//         }
+//     }
+
+//     cout<< endTime.size();
+//     return 0;
+// }
+/*❗️ 해결 방안: fail 코드에서 끝나는 시간 저장하는 stl을 priority queue로 바꾸면 되는 거였다! */
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <queue>
 using namespace std;
 int main(){
     int n;
     cin >> n;
     vector<pair<int, int>> v;
-    vector<int> endTime;
+    priority_queue<int, vector<int>, greater<int>> endTime;
     for(int i = 0; i<n; i++){
         int start, end;
         cin >> start >> end;
@@ -28,16 +63,13 @@ int main(){
 
     sort(v.begin(), v.end());
 
-    endTime.push_back(v[0].second);
+    endTime.push(v[0].second);
 
 
-    for(int i = 1; i< v.size(); i++){
-        for(int j = 0; j<endTime.size();j++){
-            if(endTime[j] <= v[i].first){
-                endTime[j] = v[i].second;
-                break;
-            }
-            endTime.push_back(v[i].second);
+    for(int i = 1; i< n; i++){
+        endTime.push(v[i].second);
+        if(endTime.top() <= v[i].first){
+            endTime.pop();
         }
     }
 
