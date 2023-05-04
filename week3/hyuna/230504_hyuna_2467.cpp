@@ -18,8 +18,8 @@ int main(){
     long long right = n - 1;
     
     int min = abs(solution[left] + solution[right]);
-	int minL = solution[left];
-	int minR = solution[right];
+    int minL = solution[left];
+    int minR = solution[right];
     
     while(left < right){   
         int value = solution[left] + solution[right];
@@ -28,7 +28,7 @@ int main(){
 			min = abs(value);
 			minL = solution[left];
 			minR = solution[right];
-		}
+	}
 		
         if(value > 0) right--; 
         else if (value < 0) left++;
