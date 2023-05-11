@@ -8,6 +8,7 @@ int solution(vector<int> numbers, int target) {
     queue<pair<int, int>> q;
     int answer = 0;
     q.push({0, 0});
+    //visited 체크 하지 않는다
     while (!q.empty()) {
         int sum = q.front().first;
         int index = q.front().second;
