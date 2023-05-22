@@ -40,7 +40,7 @@ def solution(n, computers):
 
 if __name__ == "__main__":
 
-    n = input()
+    n = int(input())
     computers = []
 
     for _ in range(n):
