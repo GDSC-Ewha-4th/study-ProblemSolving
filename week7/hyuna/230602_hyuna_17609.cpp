@@ -2,18 +2,19 @@
 using namespace std;
 
 string s;
-int isPalindrome(int left, int right, bool pseudo){
-    while (left < right) {
-        if (s[left] != s[right]) {
-            if (pseudo) {
-                if (isPalindrome(left + 1, right, false) == 0 || isPalindrome(left, right - 1, false) == 0) return 1;
+int isPalindrome(int left, int right, bool notPseudo){
+    while (left < right) { // 순서가 반대가 되기 전까지
+        if (s[left] != s[right]) { // 두 위치가 같지 않을 때 유사 회문인지 판단
+            if (notPseudo) { // 유사 회문 아니면
+                // left 인덱스를 제외한 스트링이 회문이거나 right 인덱스를 제외한 스트링이 회문이면 유사 회문
+                if (isPalindrome(left + 1, right, false) == 0 || isPalindrome(left, right - 1, false) == 0) return 1; // 유사 회문이면 1
             }
-            return 2;
+            return 2; // 아무것도 아니면 2
         }
         left++; 
         right--;
     }
-    return 0;
+    return 0; // 1도 2도 아니면 회문
 }
 
 int main(){
