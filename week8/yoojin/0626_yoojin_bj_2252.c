@@ -33,25 +33,24 @@ typedef struct Queue {
 	Node2* header;
 	Node2* trailer;
 } Queue;
-//--------------ÃÊ±âÈ­-------------------
+//----------------------------------------------------
 Node* getNode(int val) {
 	Node* res = (Node*)malloc(sizeof(Node));
-	res->val = val; 
-	res->next = NULL;
+	res->val = val; res->next = NULL;
 	return res;
 }
+
 Vertex* getVertex() {
 	Vertex* res = (Vertex*)malloc(sizeof(Vertex));
-	res->header = getNode(NULL); 
-	res->in = 0;
+	res->header = getNode(NULL); res->in = 0;
 	return res;
 }
+
 Edge* getEdge(int a, int b) {
 	Edge* res = (Edge*)malloc(sizeof(Edge));
 	res->a = a; res->b = b;
 	return res;
 }
-//---------------------------------------
 
 void addEdgeToVertex(int eIndex, Vertex* vertex) {
 	Node* newNode = getNode(eIndex);
@@ -86,16 +85,13 @@ Node2* getNode2(int val) {
 	res->val = val; res->prev = NULL; res->next = NULL;
 	return res;
 }
-//---------------------------------------------------------
+
 void enqueue(Queue* q, int val) {
 	Node2* newNode = getNode2(val);
 	Node2* prev = q->trailer->prev;
 
-	prev->next = newNode; 
-	newNode->prev = prev;
-
-	newNode->next = q->trailer; 
-	q->trailer->prev = newNode;
+	prev->next = newNode; newNode->prev = prev;
+	newNode->next = q->trailer; q->trailer->prev = newNode;
 	q->count += 1;
 }
 
@@ -121,7 +117,7 @@ int getAdjacentVertexIndex(int vIndex, Edge* edge) {
 void doTopologicalSort(Metadata* mt) {
 	int i;
 
-	// Å¥ ÃÊ±âÈ­
+	// í ì´ˆê¸°í™”
 	Queue* q = (Queue*)malloc(sizeof(Queue));
 	q->count = 0; q->header = getNode2(NULL); q->trailer = getNode2(NULL);
 	q->header->next = q->trailer; q->trailer->prev = q->header;
@@ -129,7 +125,7 @@ void doTopologicalSort(Metadata* mt) {
 		if (mt->vertices[i]->in == 0) enqueue(q, i);
 	}
 
-	// À§»óÁ¤·Ä
+	// ìœ„ìƒì •ë ¬
 	while (q->count != 0) {
 		int vIndex = dequeue(q);
 		printf("%d ", vIndex);
